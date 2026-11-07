@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Café Aurora: café artesanal, pães quentinhos e um cantinho acolhedor para começar bem o dia.">
+  <title>Café Aurora</title>
+
+  <style>
+    /* ---------- Cores e configurações gerais ---------- */
+    :root {
+      --creme: #fbf3e9;
+      --creme-escuro: #f1e2cf;
+      --marrom: #4a2c1a;
+      --marrom-claro: #7a5237;
+      --laranja: #c8743a;
+      --laranja-escuro: #a85d29;
+      --branco: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 70px; /* evita que o cabeçalho cubra os títulos ao navegar */
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background-color: var(--creme);
+      color: var(--marrom);
+      line-height: 1.7;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.25;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    /* ---------- Cabeçalho ---------- */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background-color: var(--marrom);
+      color: var(--creme);
+    }
+
+    .header-conteudo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 64px;
+    }
+
+    .logo {
+      font-size: 1.3rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    /* Botão do menu (visível só no celular) */
+    .menu-toggle {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 8px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 24px;
+      height: 3px;
+      background-color: var(--creme);
+      border-radius: 2px;
+    }
+
+    /* Menu no celular: escondido até clicar no botão */
+    .menu {
+      display: none;
+      position: absolute;
+      top: 64px;
+      left: 0;
+      right: 0;
+      background-color: var(--marrom);
+      padding: 0.5rem 1.25rem 1rem;
+    }
+
+    .menu.aberto {
+      display: block;
+    }
+
+    .menu ul {
+      list-style: none;
+    }
+
+    .menu a {
+      display: block;
+      padding: 0.75rem 0;
+      text-decoration: none;
+      border-bottom: 1px solid var(--marrom-claro);
+    }
+
+    .menu a:hover {
+      color: var(--laranja);
+    }
+
+    /* ---------- Seção principal ---------- */
+    .hero {
+      background: linear-gradient(135deg, var(--marrom) 0%, var(--marrom-claro) 100%);
+      color: var(--creme);
+      text-align: center;
+      padding: 5rem 0;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 560px;
+      margin: 0 auto 2rem;
+    }
+
+    .botao {
+      display: inline-block;
+      background-color: var(--laranja);
+      color: var(--branco);
+      padding: 0.85rem 1.75rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    .botao:hover {
+      background-color: var(--laranja-escuro);
+      transform: translateY(-2px);
+    }
+
+    /* ---------- Seções de conteúdo ---------- */
+    .secao {
+      padding: 4rem 0;
+    }
+
+    .secao-clara {
+      background-color: var(--creme-escuro);
+    }
+
+    .secao h2 {
+      font-size: 1.7rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .texto-centralizado {
+      text-align: center;
+    }
+
+    .texto-centralizado p {
+      max-width: 640px;
+      margin: 0 auto 1rem;
+    }
+
+    /* ---------- Cartões ---------- */
+    .cartoes {
+      display: grid;
+      grid-template-columns: 1fr; /* uma coluna no celular */
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+
+    .cartao {
+      background-color: var(--branco);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(74, 44, 26, 0.1);
+    }
+
+    .cartao h3 {
+      margin-bottom: 0.5rem;
+      color: var(--laranja-escuro);
+    }
+
+    /* ---------- Rodapé ---------- */
+    .rodape {
+      background-color: var(--marrom);
+      color: var(--creme);
+      text-align: center;
+      padding: 2.5rem 0;
+    }
+
+    .rodape-titulo {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .rodape-copy {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+
+    /* ---------- Telas maiores (a partir de 700px) ---------- */
+    @media (min-width: 700px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .menu {
+        display: block;
+        position: static;
+        background: none;
+        padding: 0;
+      }
+
+      .menu ul {
+        display: flex;
+        gap: 1.75rem;
+      }
+
+      .menu a {
+        padding: 0.25rem 0;
+        border-bottom: none;
+      }
+
+      .hero {
+        padding: 7rem 0;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      .cartoes {
+        grid-template-columns: repeat(3, 1fr); /* três colunas no computador */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-conteudo">
+      <a href="#inicio" class="logo">☕ Café Aurora</a>
+
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav id="menu" class="menu">
+        <ul>
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#diferenciais">Diferenciais</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section id="inicio" class="hero">
+      <div class="container">
+        <h1>Seu dia começa melhor com um café de verdade</h1>
+        <p>Grãos selecionados, pães fresquinhos e um ambiente feito para você desacelerar.</p>
+        <a href="#sobre" class="botao">Conheça o Café Aurora</a>
+      </div>
+    </section>
+
+    <section id="sobre" class="secao">
+      <div class="container texto-centralizado">
+        <h2>Nossa história</h2>
+        <p>
+          O Café Aurora nasceu da vontade de criar um lugar onde o tempo passa mais devagar.
+          Aqui, cada xícara é preparada com cuidado, com grãos de pequenos produtores e torra feita na casa.
+        </p>
+        <p>
+          Entre uma conversa e outra, você encontra bolos caseiros, pães de fermentação natural
+          e aquele cheirinho de café coado que faz qualquer manhã ficar mais leve.
+        </p>
+      </div>
+    </section>
+
+    <section id="diferenciais" class="secao secao-clara">
+      <div class="container">
+        <h2 class="texto-centralizado">Por que você vai gostar</h2>
+        <div class="cartoes">
+          <article class="cartao">
+            <h3>Grãos selecionados</h3>
+            <p>Café de origem conhecida, torrado em pequenos lotes para manter todo o sabor.</p>
+          </article>
+          <article class="cartao">
+            <h3>Feito na hora</h3>
+            <p>Pães, bolos e salgados saem do forno todos os dias, sempre fresquinhos.</p>
+          </article>
+          <article class="cartao">
+            <h3>Ambiente acolhedor</h3>
+            <p>Um espaço aconchegante para trabalhar, ler ou encontrar quem você gosta.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="contato" class="rodape">
+    <div class="container">
+      <p class="rodape-titulo">Café Aurora</p>
+      <p>Rua das Flores, 123 · Centro</p>
+      <p>Aberto todos os dias, das 7h às 19h</p>
+      <p class="rodape-copy">© <span id="ano"></span> Café Aurora · Projeto fictício para estudo</p>
+    </div>
+  </footer>
+
+  <script>
+    // Menu para telas pequenas
+    const botaoMenu = document.querySelector(".menu-toggle");
+    const menu = document.querySelector("#menu");
+
+    botaoMenu.addEventListener("click", function () {
+      const estaAberto = menu.classList.toggle("aberto");
+      botaoMenu.setAttribute("aria-expanded", estaAberto);
+      botaoMenu.setAttribute("aria-label", estaAberto ? "Fechar menu" : "Abrir menu");
+    });
+
+    // Fecha o menu ao clicar em um link
+    menu.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        menu.classList.remove("aberto");
+        botaoMenu.setAttribute("aria-expanded", "false");
+        botaoMenu.setAttribute("aria-label", "Abrir menu");
+      });
+    });
+
+    // Preenche o ano do rodapé automaticamente
+    document.querySelector("#ano").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
